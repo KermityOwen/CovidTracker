@@ -5,7 +5,7 @@ CovidTrackerUK is a Python project used to track current national and local case
 
 ## Installation
 
-Download the sourcecode from my GitHub github/KermityOwen/CovidUKTracker
+Download the sourcecode from my GitHub github/KermityOwen/CovidTracker
 
 
 ## Usage
