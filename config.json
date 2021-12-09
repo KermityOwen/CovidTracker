@@ -1,0 +1,16 @@
+{
+  "local_covid_file" : "local_covid_data.csv",
+  "national_covid_file" : "national_covid_data.csv",
+  "news_dashboard_file" : "news_dashboard.json",
+  "local_location" : "Exeter",
+  "national_location" : "England",
+  "covid_terms" : "Covid COVID-19 coronavirus",
+  "api_key" : "b4ec4ff94546481e98e55fbcb8eb4f25",
+  "sort_by" : "relevancy",
+  "covid_up_text" : "Updating Covid Data in: ",
+  "news_up_text" : "Updating News Dashboard at: ",
+  "hospital_case_text" : "Current Hospital Cases: ",
+  "death_case_text" : "Total Cumulative Deaths: ",
+  "template" : "index.html",
+  "log_file" : "record.log"
+}
