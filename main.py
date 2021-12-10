@@ -7,8 +7,9 @@ import time
 import logging
 
 from flask import render_template, Flask, request, redirect
-from covid_data_handler import parse_csv_data, process_covid_csv_data, schedule_covid_updates
-from covid_news_handling import schedule_news_updates, news_data_update, filtering_news
+
+from covid_data_handler import parse_csv_data, process_covid_csv_data, schedule_covid_updates, s_covid
+from covid_news_handling import schedule_news_updates, news_data_update, filtering_news, s_news
 from time_handler import hhmmss_to_seconds, current_time_seconds
 
 # Opening, reading and defining config file
@@ -17,7 +18,6 @@ with open('config.json', 'r', encoding='utf-8') as f:  # Encoding because of new
 
 logging.basicConfig(filename=config["log_file"], level=logging.INFO, format="%(asctime)s : %(levelname)s : "
                                                                             "%(filename)s : %(message)s")
-s = sched.scheduler(time.time, time.sleep)
 
 # Processing covid csv data and declaring it into variable to be called
 loc_last7days_cases, loc_location = process_covid_csv_data(parse_csv_data(config["local_covid_file"]), False)
@@ -32,12 +32,26 @@ app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 
+def filter_updatedash(filtered_title):
+    for y in updatedash:
+        if y["title"] == filtered_title:
+            updatedash.remove(y)
+            logging.info("{} removed from updates".format(y["title"]))
+
+
+@app.route('/')
+def redir():  # Redirects user to /index when clicked on default link of http://127.0.0.1:5000/
+    return redirect('/index')
+
+
 @app.route('/index')
 def index():
-    s.run(blocking=False)
+    s_covid.run(blocking=False)
+    s_news.run(blocking=False)
     text_field = request.args.get("two")
     update_time = request.args.get("update")
     filter_text = request.args.get("notif")
+    filter_update = request.args.get("update_item")
 
     with open(config["news_dashboard_file"], 'r', encoding='utf-8') as json_news:
         newsdash = json.load(json_news)
@@ -48,7 +62,7 @@ def index():
     if text_field:
         time_interval = hhmmss_to_seconds(update_time) - current_time_seconds()
         if request.args.get("news"):
-            schedule_news_updates(time_interval, s)
+            schedule_news_updates(time_interval, text_field)
             updatedash.append({
                 'title': text_field,
                 'content': config["news_up_text"] + str(update_time)
@@ -59,7 +73,7 @@ def index():
             if request.args.get("covid-data") is None:
                 return redirect(request.path)
         if request.args.get("covid-data"):
-            schedule_covid_updates(time_interval, s)
+            schedule_covid_updates(time_interval, text_field)
             updatedash.append({
                 'title': text_field,
                 'content': config["covid_up_text"] + str(update_time)
@@ -70,6 +84,10 @@ def index():
     if filter_text:
         filtered_terms.append({"title": filter_text})
         news_data_update(config["news_dashboard_file"], filtering_news(newsdash, filtered_terms))
+        return redirect(request.path)
+
+    if filter_update:
+        filter_updatedash(filter_update)
         return redirect(request.path)
 
     return render_template(config["template"], title="ECM1400 Test",

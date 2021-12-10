@@ -4,10 +4,13 @@ Module containing all the functions used to handle and fetch live covid data fro
 import sched
 import logging
 import json
+import time
+
 from uk_covid19 import Cov19API
 
 with open('config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
+s_covid = sched.scheduler(time.time, time.sleep)
 
 
 def parse_csv_data(data):
@@ -24,7 +27,7 @@ def parse_csv_data(data):
     line_data = []  # Declaring temporary empty list
     for x in f1.readlines():  # Loops through file's lines
         line_data.append(x)  # Appends lines to the list as a string
-    return line_data    # Return
+    return line_data  # Return
 
 
 def process_covid_csv_data(parsed_data, national_scale=True):
@@ -38,17 +41,17 @@ def process_covid_csv_data(parsed_data, national_scale=True):
     Returns:
         single_weekly, current_hospital[1], total_death[1], location (int, str, str, str): Information about Covid Cases
     """
-    daily_cases, current_hospital, total_death, single_weekly, location = [], [], [], 0, ""    # Declaring variables
+    daily_cases, current_hospital, total_death, single_weekly, location = [], [], [], 0, ""  # Declaring variables
     for x in range(len(parsed_data)):
-        line_split = parsed_data[x].split(",")    # Split every string into a list
+        line_split = parsed_data[x].split(",")  # Split every string into a list
         # \/ Saving data into the variables declared earlier
         location = line_split[1]
         if line_split[4] != "":
             total_death.append(line_split[4])
         current_hospital.append(line_split[5])
         daily_cases.append(line_split[6])
-    for i in range(0, 7):   # Looping through the last 7 days of daily cases into one weekly case variable
-        single_weekly += int(str(daily_cases[i + 2]).strip())   # [i+2] to ignore first incomplete data entry
+    for i in range(0, 7):  # Looping through the last 7 days of daily cases into one weekly case variable
+        single_weekly += int(str(daily_cases[i + 2]).strip())  # [i+2] to ignore first incomplete data entry
     # \/ returns values based on it argument of whether or not it's national or local scale
     if national_scale:
         logging.info("National CSV data processed")
@@ -107,16 +110,19 @@ def covid_data_update(local_file_name=config["local_covid_file"], national_file_
     logging.info("Covid data files updated.")
 
 
-def schedule_covid_updates(update_interval: int, update_name: sched.scheduler):
+def schedule_covid_updates(update_interval: int, update_name: sched.scheduler, repeat=False):
     """
     Schedule Covid Updates with covid_data_update():
 
     Args:
         update_interval (int): Delay of when to update
-        update_name (scheduler): Scheduler to add event to
+        update_name (scheduler): Name of the update event to be cancelled if needed
+        repeat (bool): Defaults to false, Whether or not the update event is repeated every 24hours
 
     Returns:
         None
     """
-    update_event = update_name.enter(update_interval, 1, covid_data_update, ())  # Enter update as a scheduled event
+    update_name = s_covid.enter(update_interval, 1, covid_data_update, ())  # Enter update as a scheduled event
+    if repeat:
+        update_name = s_covid.enter(86400, 1, schedule_covid_updates(update_interval, update_name, True))
     logging.info("Covid data update scheduled for the next: {} Seconds".format(update_interval))

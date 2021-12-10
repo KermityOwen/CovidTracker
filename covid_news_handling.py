@@ -13,7 +13,7 @@ with open('config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 
 newsapi = NewsApiClient(api_key=config["api_key"])
-s = sched.scheduler(time.time, time.sleep)
+s_news = sched.scheduler(time.time, time.sleep)
 
 
 def news_API_request(covid_terms="Covid COVID-19 coronavirus"):
@@ -79,16 +79,19 @@ def news_data_update(file_name: str, file_data: list):
     logging.info("News data files updated")
 
 
-def schedule_news_updates(update_interval, update_name):
+def schedule_news_updates(update_interval, update_name, repeat=False):
     """
-   Schedule Covid Updates with covid_data_update():
+    Schedule Covid Updates with covid_data_update():
 
     Args:
         update_interval (int): Delay of when to update
-        update_name (str): Name of the scheduled update which is returned
+        update_name (str): Name of the update event to be cancelled if needed
+        repeat (bool): Defaults to false, Whether or not the update event is repeated every 24hours
 
     Returns:
         None
     """
-    update_event = update_name.enter(update_interval, 1, news_data_update, ("news_dashboard.json", news_API_request()))
+    update_name = s_news.enter(update_interval, 1, news_data_update, ("news_dashboard.json", news_API_request()))
+    if repeat:
+        update_name = s_news.enter(86400, 1, schedule_news_updates(update_interval, update_name, True))
     logging.info("Covid data update scheduled for the next: {} Seconds".format(update_interval))
