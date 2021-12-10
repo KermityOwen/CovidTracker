@@ -123,6 +123,4 @@ def schedule_covid_updates(update_interval: int, update_name: sched.scheduler, r
         None
     """
     update_name = s_covid.enter(update_interval, 1, covid_data_update, ())  # Enter update as a scheduled event
-    if repeat:
-        update_name = s_covid.enter(86400, 1, schedule_covid_updates(update_interval, update_name, True))
     logging.info("Covid data update scheduled for the next: {} Seconds".format(update_interval))

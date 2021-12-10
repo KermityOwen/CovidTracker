@@ -92,6 +92,4 @@ def schedule_news_updates(update_interval, update_name, repeat=False):
         None
     """
     update_name = s_news.enter(update_interval, 1, news_data_update, ("news_dashboard.json", news_API_request()))
-    if repeat:
-        update_name = s_news.enter(86400, 1, schedule_news_updates(update_interval, update_name, True))
     logging.info("Covid data update scheduled for the next: {} Seconds".format(update_interval))

@@ -52,6 +52,7 @@ def index():
     update_time = request.args.get("update")
     filter_text = request.args.get("notif")
     filter_update = request.args.get("update_item")
+    repeat = request.args.get("repeat")
 
     with open(config["news_dashboard_file"], 'r', encoding='utf-8') as json_news:
         newsdash = json.load(json_news)
@@ -62,22 +63,34 @@ def index():
     if text_field:
         time_interval = hhmmss_to_seconds(update_time) - current_time_seconds()
         if request.args.get("news"):
-            schedule_news_updates(time_interval, text_field)
-            updatedash.append({
-                'title': text_field,
-                'content': config["news_up_text"] + str(update_time)
-            })
+            schedule_news_updates(time_interval, text_field, repeat=repeat)
+            if repeat:
+                updatedash.append({
+                    'title': text_field,
+                    'content': config["news_up_text"] + str(update_time) + " {}ing daily.".format(repeat)
+                })
+            else:
+                updatedash.append({
+                    'title': text_field,
+                    'content': config["news_up_text"] + str(update_time)
+                })
             logging.info("User entered scheduled update for news dashboard with text field '{}'".format(text_field))
             # Kinda bad code, makes sure it doesn't prematurely redirect into /index so if both boxes are ticked it
             # would run below code before returning
             if request.args.get("covid-data") is None:
                 return redirect(request.path)
         if request.args.get("covid-data"):
-            schedule_covid_updates(time_interval, text_field)
-            updatedash.append({
-                'title': text_field,
-                'content': config["covid_up_text"] + str(update_time)
-            })
+            schedule_covid_updates(time_interval, text_field, repeat=repeat)
+            if repeat:
+                updatedash.append({
+                    'title': text_field,
+                    'content': config["covid_up_text"] + str(update_time) + " {}ing daily.".format(repeat)
+                })
+            else:
+                updatedash.append({
+                    'title': text_field,
+                    'content': config["covid_up_text"] + str(update_time)
+                })
             logging.info("User entered scheduled update for covid data with text field '{}'".format(text_field))
             return redirect(request.path)
 

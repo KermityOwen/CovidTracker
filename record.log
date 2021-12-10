@@ -1,0 +1,145 @@
+2021-12-10 20:14:55,864 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-10 20:14:55,864 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-10 20:14:55,869 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-10 20:14:59,110 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:14:59] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:14:59,121 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:14:59] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:15:01,600 : INFO : covid_news_handling.py : News filtered, removed Mounting evidence highlights the importance of Covid-19 boosters
+2021-12-10 20:15:01,601 : INFO : covid_news_handling.py : News data files updated
+2021-12-10 20:15:01,601 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:15:01] "[32mGET /index?notif=Mounting+evidence+highlights+the+importance+of+Covid-19+boosters HTTP/1.1[0m" 302 -
+2021-12-10 20:15:01,607 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:15:01] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:15:01,618 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:15:01] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:15:06,026 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:15:06,231 : INFO : covid_news_handling.py : News fetched from newsapi
+2021-12-10 20:15:06,231 : INFO : covid_news_handling.py : Covid data update scheduled for the next: 114 Seconds
+2021-12-10 20:15:06,231 : INFO : main.py : User entered scheduled update for news dashboard with text field 'ok'
+2021-12-10 20:15:06,231 : INFO : covid_data_handler.py : Covid data update scheduled for the next: 114 Seconds
+2021-12-10 20:15:06,231 : INFO : main.py : User entered scheduled update for covid data with text field 'ok'
+2021-12-10 20:15:06,231 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:15:06] "[32mGET /index?update=20%3A17&two=ok&covid-data=covid-data&news=news HTTP/1.1[0m" 302 -
+2021-12-10 20:15:06,233 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:15:06] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:15:06,244 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:15:06] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:15:20,690 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:15:20,693 : ERROR : app.py : Exception on /index [GET]
+Traceback (most recent call last):
+  File "C:\Users\owent\PycharmProjects\CovidTracker\venv\lib\site-packages\flask\app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\owent\PycharmProjects\CovidTracker\venv\lib\site-packages\flask\app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\owent\PycharmProjects\CovidTracker\venv\lib\site-packages\flask\app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\owent\PycharmProjects\CovidTracker\venv\lib\site-packages\flask\app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:/Users/owent/PycharmProjects/CovidTracker/main.py", line 77, in index
+    schedule_covid_updates(time_interval, text_field, repeat=repeat)
+  File "C:\Users\owent\PycharmProjects\CovidTracker\covid_data_handler.py", line 127, in schedule_covid_updates
+    update_name = s_covid.enter(86400, 1, schedule_covid_updates(update_interval, update_name, True))
+  File "C:\Users\owent\PycharmProjects\CovidTracker\covid_data_handler.py", line 127, in schedule_covid_updates
+    update_name = s_covid.enter(86400, 1, schedule_covid_updates(update_interval, update_name, True))
+  File "C:\Users\owent\PycharmProjects\CovidTracker\covid_data_handler.py", line 127, in schedule_covid_updates
+    update_name = s_covid.enter(86400, 1, schedule_covid_updates(update_interval, update_name, True))
+  [Previous line repeated 972 more times]
+  File "C:\Users\owent\PycharmProjects\CovidTracker\covid_data_handler.py", line 125, in schedule_covid_updates
+    update_name = s_covid.enter(update_interval, 1, covid_data_update, ())  # Enter update as a scheduled event
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.8_3.8.2800.0_x64__qbz5n2kfra8p0\lib\sched.py", line 86, in enter
+    return self.enterabs(time, priority, action, argument, kwargs)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.8_3.8.2800.0_x64__qbz5n2kfra8p0\lib\sched.py", line 76, in enterabs
+    heapq.heappush(self._queue, event)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.8_3.8.2800.0_x64__qbz5n2kfra8p0\lib\sched.py", line 37, in __lt__
+    def __lt__(s, o): return (s.time, s.priority) <  (o.time, o.priority)
+RecursionError: maximum recursion depth exceeded in comparison
+2021-12-10 20:15:20,695 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:15:20] "[35m[1mGET /index?update=20%3A16&two=oj&repeat=repeat&covid-data=covid-data HTTP/1.1[0m" 500 -
+2021-12-10 20:18:15,280 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-10 20:18:15,280 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-10 20:18:15,285 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-10 20:18:35,414 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-10 20:18:35,415 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-10 20:18:35,419 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-10 20:18:44,303 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:44] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:18:44,311 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:44] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:18:49,262 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:18:49,602 : INFO : covid_news_handling.py : News fetched from newsapi
+2021-12-10 20:18:49,602 : INFO : covid_news_handling.py : Covid data update scheduled for the next: 71 Seconds
+2021-12-10 20:18:49,602 : INFO : main.py : User entered scheduled update for news dashboard with text field 'ok'
+2021-12-10 20:18:49,602 : INFO : covid_data_handler.py : Covid data update scheduled for the next: 71 Seconds
+2021-12-10 20:18:49,602 : INFO : main.py : User entered scheduled update for covid data with text field 'ok'
+2021-12-10 20:18:49,603 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:49] "[32mGET /index?update=20%3A20&two=ok&covid-data=covid-data&news=news HTTP/1.1[0m" 302 -
+2021-12-10 20:18:49,605 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:49] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:18:49,616 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:49] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:18:50,976 : INFO : main.py : ok removed from updates
+2021-12-10 20:18:50,976 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:50] "[32mGET /index?update_item=ok HTTP/1.1[0m" 302 -
+2021-12-10 20:18:50,978 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:50] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:18:50,988 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:50] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:18:59,166 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:18:59,288 : INFO : covid_news_handling.py : News fetched from newsapi
+2021-12-10 20:18:59,288 : INFO : covid_news_handling.py : Covid data update scheduled for the next: 1 Seconds
+2021-12-10 20:18:59,288 : INFO : main.py : User entered scheduled update for news dashboard with text field 'ok'
+2021-12-10 20:18:59,288 : INFO : covid_data_handler.py : Covid data update scheduled for the next: 1 Seconds
+2021-12-10 20:18:59,288 : INFO : main.py : User entered scheduled update for covid data with text field 'ok'
+2021-12-10 20:18:59,288 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:59] "[32mGET /index?update=20%3A19&two=ok&repeat=repeat&covid-data=covid-data&news=news HTTP/1.1[0m" 302 -
+2021-12-10 20:18:59,291 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:59] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:18:59,303 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:18:59] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:20:42,121 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-10 20:20:42,122 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-10 20:20:42,127 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-10 20:20:42,193 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:20:42] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:20:42,444 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:20:42] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:20:43,918 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:20:43] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:20:43,928 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:20:43] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:20:48,427 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:20:48,589 : INFO : covid_news_handling.py : News fetched from newsapi
+2021-12-10 20:20:48,589 : INFO : covid_news_handling.py : Covid data update scheduled for the next: 132 Seconds
+2021-12-10 20:20:48,589 : INFO : main.py : User entered scheduled update for news dashboard with text field 'ok'
+2021-12-10 20:20:48,589 : INFO : covid_data_handler.py : Covid data update scheduled for the next: 132 Seconds
+2021-12-10 20:20:48,590 : INFO : main.py : User entered scheduled update for covid data with text field 'ok'
+2021-12-10 20:20:48,590 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:20:48] "[32mGET /index?update=20%3A23&two=ok&repeat=repeat&covid-data=covid-data&news=news HTTP/1.1[0m" 302 -
+2021-12-10 20:20:48,592 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:20:48] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:20:48,602 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:20:48] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:21:46,287 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-10 20:21:46,288 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-10 20:21:46,292 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-10 20:21:48,344 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:21:48] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:21:48,354 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:21:48] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:21:52,974 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:21:53,106 : INFO : covid_news_handling.py : News fetched from newsapi
+2021-12-10 20:21:53,106 : INFO : covid_news_handling.py : Covid data update scheduled for the next: 8 Seconds
+2021-12-10 20:21:53,106 : INFO : main.py : User entered scheduled update for news dashboard with text field 'ok'
+2021-12-10 20:21:53,106 : INFO : covid_data_handler.py : Covid data update scheduled for the next: 8 Seconds
+2021-12-10 20:21:53,106 : INFO : main.py : User entered scheduled update for covid data with text field 'ok'
+2021-12-10 20:21:53,107 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:21:53] "[32mGET /index?update=20%3A22&two=ok&repeat=repeat&covid-data=covid-data&news=news HTTP/1.1[0m" 302 -
+2021-12-10 20:21:53,109 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:21:53] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:21:53,120 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:21:53] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:22:05,352 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-10 20:22:05,353 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-10 20:22:05,357 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-10 20:22:06,962 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:22:06] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:22:06,972 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:22:06] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:22:11,422 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:22:11,548 : INFO : covid_news_handling.py : News fetched from newsapi
+2021-12-10 20:22:11,548 : INFO : covid_news_handling.py : Covid data update scheduled for the next: 169 Seconds
+2021-12-10 20:22:11,548 : INFO : main.py : User entered scheduled update for news dashboard with text field 'ok'
+2021-12-10 20:22:11,548 : INFO : covid_data_handler.py : Covid data update scheduled for the next: 169 Seconds
+2021-12-10 20:22:11,548 : INFO : main.py : User entered scheduled update for covid data with text field 'ok'
+2021-12-10 20:22:11,548 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:22:11] "[32mGET /index?update=20%3A25&two=ok&repeat=repeat&covid-data=covid-data&news=news HTTP/1.1[0m" 302 -
+2021-12-10 20:22:11,550 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:22:11] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:22:11,561 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:22:11] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:22:54,704 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-10 20:22:54,705 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-10 20:22:54,709 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-10 20:22:56,323 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:22:56] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:22:56,332 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:22:56] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:23:01,189 : INFO : time_handler.py : Current time fetched
+2021-12-10 20:23:01,318 : INFO : covid_news_handling.py : News fetched from newsapi
+2021-12-10 20:23:01,318 : INFO : covid_news_handling.py : Covid data update scheduled for the next: 59 Seconds
+2021-12-10 20:23:01,318 : INFO : main.py : User entered scheduled update for news dashboard with text field 'ok'
+2021-12-10 20:23:01,318 : INFO : covid_data_handler.py : Covid data update scheduled for the next: 59 Seconds
+2021-12-10 20:23:01,318 : INFO : main.py : User entered scheduled update for covid data with text field 'ok'
+2021-12-10 20:23:01,319 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:01] "[32mGET /index?update=20%3A24&two=ok&repeat=repeat&covid-data=covid-data&news=news HTTP/1.1[0m" 302 -
+2021-12-10 20:23:01,321 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:01] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:23:01,333 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:01] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:23:06,323 : INFO : main.py : ok removed from updates
+2021-12-10 20:23:06,324 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:06] "[32mGET /index?update_item=ok HTTP/1.1[0m" 302 -
+2021-12-10 20:23:06,325 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:06] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:23:06,335 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:06] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
+2021-12-10 20:23:06,933 : INFO : main.py : ok removed from updates
+2021-12-10 20:23:06,934 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:06] "[32mGET /index?update_item=ok HTTP/1.1[0m" 302 -
+2021-12-10 20:23:06,935 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:06] "GET /index HTTP/1.1" 200 -
+2021-12-10 20:23:06,947 : INFO : _internal.py : 127.0.0.1 - - [10/Dec/2021 20:23:06] "[33mGET /static/images/masks.png HTTP/1.1[0m" 404 -
