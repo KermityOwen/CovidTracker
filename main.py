@@ -23,6 +23,7 @@ logging.basicConfig(filename=config["log_file"], level=logging.INFO, format="%(a
 loc_last7days_cases, loc_location = process_covid_csv_data(parse_csv_data(config["local_covid_file"]), False)
 nat_last7days_cases, current_hospital_cases, total_deaths, nat_location = process_covid_csv_data(
     parse_csv_data(config["national_covid_file"]), True)
+image = "masks.png"
 
 # Cached data that resets on program restart
 filtered_terms = []  # List of removed articles for filter
@@ -104,7 +105,7 @@ def index():
         return redirect(request.path)
 
     return render_template(config["template"], title="ECM1400 Test",
-                           image="masks.png",
+                           image=image,
                            location=loc_location,
                            local_7day_infections=loc_last7days_cases,
                            nation_location=nat_location,
