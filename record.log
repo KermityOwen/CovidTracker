@@ -1,0 +1,6 @@
+2021-12-13 21:55:34,290 : INFO : covid_data_handler.py : Local CSV data processed
+2021-12-13 21:55:34,295 : INFO : covid_data_handler.py : National CSV data processed
+2021-12-13 21:55:34,300 : INFO : _internal.py :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-12-13 21:55:38,023 : INFO : _internal.py : 127.0.0.1 - - [13/Dec/2021 21:55:38] "GET /index HTTP/1.1" 200 -
+2021-12-13 21:55:38,102 : INFO : _internal.py : 127.0.0.1 - - [13/Dec/2021 21:55:38] "GET /static/images/masks.png HTTP/1.1" 200 -
+2021-12-13 21:55:38,235 : INFO : _internal.py : 127.0.0.1 - - [13/Dec/2021 21:55:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
