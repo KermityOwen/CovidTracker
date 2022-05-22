@@ -2,6 +2,8 @@
 
 CovidTrackerUK is a Python project used to track current national and local cases in the UK
 
+NO LONGER WORKING DUE THE UK GOVERNMENT NO LONGER UPDATING THIER COVID DATABASES
+
 
 ## Installation
 
